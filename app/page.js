@@ -1,91 +1,185 @@
-import Image from 'next/image'
+'use client'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
+import { Button, Container, Group, SimpleGrid, useMantineTheme } from '@mantine/core'
+import { CardWithStats } from './previewCard'
+import HeroImageBackground from './hero'
+import { FeaturesCard } from './featuresCard'
+import FooterLinks from './footerLinks'
+import { IconPoint } from '@tabler/icons-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// const mockData = {
+//   "image": "https://images.unsplash.com/photo-1581889470536-467bdbe30cd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
+//   "title": "Running challenge",
+//   "description": "56 km this month • 17% improvement compared to last month • 443 place in global scoreboard",
+//   "stats": [
+//     {
+//       "title": "Distance",
+//       "value": "27.4 km"
+//     },
+//     {
+//       "title": "Avg. speed",
+//       "value": "9.6 km/h"
+//     },
+//     {
+//       "title": "Score",
+//       "value": "88/100"
+//     }
+//   ]
+// }
+
+const mockData = {
+  "data": [
+    {
+      "title": "About",
+      "links": [
+        {
+          "label": "Features",
+          "link": "#"
+        },
+        {
+          "label": "Pricing",
+          "link": "#"
+        },
+        {
+          "label": "Support",
+          "link": "#"
+        },
+        {
+          "label": "Forums",
+          "link": "#"
+        }
+      ]
+    },
+    {
+      "title": "Project",
+      "links": [
+        {
+          "label": "Contribute",
+          "link": "#"
+        },
+        {
+          "label": "Media assets",
+          "link": "#"
+        },
+        {
+          "label": "Changelog",
+          "link": "#"
+        },
+        {
+          "label": "Releases",
+          "link": "#"
+        }
+      ]
+    },
+    {
+      "title": "Community",
+      "links": [
+        {
+          "label": "Join Discord",
+          "link": "#"
+        },
+        {
+          "label": "Follow on Twitter",
+          "link": "#"
+        },
+        {
+          "label": "Email newsletter",
+          "link": "#"
+        },
+        {
+          "label": "GitHub discussions",
+          "link": "#"
+        }
+      ]
+    }
+  ]
+}
+
+const products = [
+  {
+    src: "https://m.media-amazon.com/images/I/31LLzbtQWyL._AC_UF226,226_FMjpg_.jpg",
+    link: "https://www.amazon.com/Stainless-Mill-Premium-included-Portable-Adjustable-Camping-Manual/dp/B0BHRZ5MVQ/ref=sr_1_3_sspa?crid=7MZAAW80MYGV&keywords=coffee+grinder+manual&qid=1681309686&sprefix=coffee+grinder+manual%2Caps%2C139&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyTjBQTklKRkhISEkmZW5jcnlwdGVkSWQ9QTAzODU1NzMyQUdWUVZXU0IzQ1dVJmVuY3J5cHRlZEFkSWQ9QTA5MDAzOTMyT0ZKRURETUs2VVBBJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
+    title: "Podcast Microphone",
+    subtitle: "Free recharge at any station",
+    badge: "50% off",
+    price: 100,
+    features: [
+      { label: '4 passengers', icon: IconPoint },
+      { label: '100 km/h in 4 seconds', icon: IconPoint },
+      { label: 'Automatic gearbox', icon: IconPoint },
+      { label: 'Electric', icon: IconPoint },
+    ]
+  },
+  {
+    src: "https://m.media-amazon.com/images/I/81q21ppXJaL._AC_UL400_.jpg",
+    link: "https://www.amazon.com/Stainless-Mill-Premium-included-Portable-Adjustable-Camping-Manual/dp/B0BHRZ5MVQ/ref=sr_1_3_sspa?crid=7MZAAW80MYGV&keywords=coffee+grinder+manual&qid=1681309686&sprefix=coffee+grinder+manual%2Caps%2C139&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyTjBQTklKRkhISEkmZW5jcnlwdGVkSWQ9QTAzODU1NzMyQUdWUVZXU0IzQ1dVJmVuY3J5cHRlZEFkSWQ9QTA5MDAzOTMyT0ZKRURETUs2VVBBJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
+    title: "Coffee Grinder",
+    subtitle: "Stainless steel conical Burr",
+    badge: "50% off",
+    price: 200,
+    features: [
+      { label: 'Unbelievable taste', icon: IconPoint },
+      { label: 'Powerful Burr Grinder', icon: IconPoint },
+      { label: 'Roughness Adjustment', icon: IconPoint },
+      { label: 'Portable and convenient to carry', icon: IconPoint },
+      { label: 'Portable and convenient to carry', icon: IconPoint },
+    ]
+  },
+  {
+    src: "https://m.media-amazon.com/images/I/71Cz0deEiTL._AC_SX522_.jpg",
+    link: "https://www.amazon.com/Gazelle-GT400GR-Portable-4-Person-Overlanding/dp/B08B2FGLV8/ref=sr_1_1?crid=ZGE2PMTWKIVT&keywords=waterproof+tent&qid=1681344937&sprefix=waterproof+tent%2Caps%2C166&sr=8-1",
+    title: "Gazelle Tents",
+    subtitle: "Waterprrof and Tall",
+    badge: "50% off",
+    price: 349,
+    features: [
+      { label: 'Super Easy Setup: Setup is quick and hassle-free', icon: IconPoint },
+      { label: 'Remarkably Lightweight: Easy to carry on long hikes', icon: IconPoint },
+      { label: 'Great Ventilation: Air flows freely in and out', icon: IconPoint },
+    ]
+  }
+]
+
+
+
 export default function Home() {
+  const theme = useMantineTheme()
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <><Container size={"lg"}>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
+      <HeroImageBackground imgSrc="https://th.bing.com/th/id/OIP.NNkfwI_HaIz9AYvKaXqsAQHaE7?pid=ImgDet&rs=1" />
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <main className={styles.main} style={{ marginBottom: theme.spacing.xl }}>
+        {/* <Group grow>{
+          products.map((product) => (
+            <FeaturesCard mockdata={product} />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
+          ))
+        }</Group> */}
+        <SimpleGrid cols={3}
+          spacing="lg"
+          breakpoints={[
+            { maxWidth: '62rem', cols: 3, spacing: 'md' },
+            { maxWidth: '48rem', cols: 2, spacing: 'sm' },
+            { maxWidth: '36rem', cols: 1, spacing: 'sm' },
+          ]}>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          {
+            products.map((product) => (
+              <FeaturesCard mockdata={product} />
+
+            ))
+          }
+        </SimpleGrid>
+
+      </main>
+      {/* <FooterLinks data={mockData.data} /> */}
+    </Container>
+
+
+    </>
   )
 }
