@@ -4,8 +4,6 @@ import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/
 
 const useStyles = createStyles((theme) => ({
     footer: {
-        // padding: 0,
-        // margin: 0,
         // width: "100%",
         // marginTop: rem(120),
         // paddingTop: `calc(${theme.spacing.xl} * 2)`,
