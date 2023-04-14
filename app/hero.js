@@ -103,14 +103,14 @@ export default function HeroImageBackground({ imgSrc }) {
             <div className={classes.inner}>
                 <Title className={classes.title}>
                     <Text component="span" inherit className={classes.highlight}>
-                        Anthony's
+                        Amazon
                     </Text>
-                    {' '}curated list of Amazon products
+                    {' '} Camping Favorites
                 </Title>
 
                 <Container size={640}>
                     <Text size="lg" className={classes.description}>
-                        These poducts have been vetted by our team of experts
+
                     </Text>
                 </Container>
 
