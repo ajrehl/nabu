@@ -57,20 +57,20 @@ export function FeaturesCard({ mockdata }) {
             </Card.Section>
 
             {/* <Group position="apart" mt="md"> */}
-            <div>
+            <div style={{ marginTop: theme.spacing.sm }}>
                 <Text fw={500}>{mockdata.title}</Text>
                 <Text fz="xs" c="dimmed">
                     {mockdata.subtitle}
                 </Text>
             </div>
-            <Carousel
+            {/* <Carousel
                 // maw={32}
                 // mx="auto"
                 // withIndicators
                 // height={200}
                 withControls={false}
                 dragFree
-                slideGap={-200}
+                slideGap={"-200rem"}
                 align="start"
             >
                 {mockdata.badges.map((badge) => (
@@ -78,7 +78,12 @@ export function FeaturesCard({ mockdata }) {
                         <Badge variant="outline" >{badge}</Badge>
                     </Carousel.Slide>
                 ))}
-            </Carousel>
+            </Carousel> */}
+            <div style={{ overflow: "hidden", marginTop: theme.spacing.sm }}>
+                {mockdata.badges.map((badge) => (
+                    <Badge variant="outline" sx={{ marginRight: 5 }}>{badge}</Badge>
+                ))}
+            </div>
 
 
             <Card.Section className={classes.section} mt="md">
