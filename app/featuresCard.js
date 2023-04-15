@@ -1,6 +1,7 @@
-import { Card, Image, Text, Group, Badge, createStyles, Center, Button, rem, List } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, createStyles, Center, Button, rem, List, useMantineTheme, Container } from '@mantine/core';
 import { IconGasStation, IconGauge, IconManualGearbox, IconUsers } from '@tabler/icons-react';
 import CardCarousel from './cardCarousel';
+import { Carousel } from '@mantine/carousel';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -40,6 +41,7 @@ const useStyles = createStyles((theme) => ({
 
 
 export function FeaturesCard({ mockdata }) {
+    const theme = useMantineTheme()
     const { classes } = useStyles();
     const features = mockdata.features.map((feature) => (
         <Center key={feature.label}>
@@ -54,28 +56,54 @@ export function FeaturesCard({ mockdata }) {
                 <Image height={200} fit='contain' src={mockdata.src} alt="Tesla Model S" />
             </Card.Section>
 
-            <Group position="apart" mt="md">
-                <div>
-                    <Text fw={500}>{mockdata.title}</Text>
-                    <Text fz="xs" c="dimmed">
-                        {mockdata.subtitle}
-                    </Text>
-                </div>
-                <Badge variant="outline">{mockdata.badge}</Badge>
-            </Group>
+            {/* <Group position="apart" mt="md"> */}
+            <div>
+                <Text fw={500}>{mockdata.title}</Text>
+                <Text fz="xs" c="dimmed">
+                    {mockdata.subtitle}
+                </Text>
+            </div>
+            <Carousel
+                // maw={32}
+                // mx="auto"
+                // withIndicators
+                // height={200}
+                withControls={false}
+                dragFree
+                slideGap={-200}
+                align="start"
+            >
+                {mockdata.badges.map((badge) => (
+                    <Carousel.Slide>
+                        <Badge variant="outline" >{badge}</Badge>
+                    </Carousel.Slide>
+                ))}
+            </Carousel>
+
 
             <Card.Section className={classes.section} mt="md">
 
-                <CardCarousel data={
+
+                <Text fz="sm" c="dimmed" className={classes.label}>
+                    Special Features
+                </Text>
+
+                <List >{mockdata.features.map((feature) => (<List.Item><Text fz="sm" c="dimmed" fw={500}>
+                    {feature.label}
+                </Text></List.Item>))}</List>
+
+
+                {/* <CardCarousel data={
                     <>
                         <Text fz="sm" c="dimmed" className={classes.label}>
-                            Basic Features
+                            Special Features
                         </Text>
+
                         <List >{mockdata.features.map((feature) => (<List.Item><Text fz="sm" c="dimmed" fw={500}>
                             {feature.label}
                         </Text></List.Item>))}</List>
                     </>
-                } />
+                } /> */}
 
                 {/* <Group spacing={8} mb={-8}>
                     {features}
